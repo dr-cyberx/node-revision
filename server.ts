@@ -1,16 +1,16 @@
 import express, { Response, Request } from 'express';
-import adminRoutes from '../routes/admin';
-import shopRoutes from '../routes/shop';
+import adminRoutes from './routes/admin';
+import shopRoutes from './routes/shop';
 
 const app: express.Application = express();
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(adminRoutes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('<h1>Hello from Express</h1>');
+app.use((req: Request, res: Response) => {
+  res.status(404).send('<h1>Page not found!</h1>');
 });
 
 app.listen(4000, () => {
