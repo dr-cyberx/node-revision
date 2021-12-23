@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import products from '../db/Products';
+import Product from '../models/product';
 
 export const getAddProduct = (req: Request, res: Response): void => {
   res.render('add-product', {
@@ -12,12 +12,18 @@ export const getAddProduct = (req: Request, res: Response): void => {
 };
 
 export const postAddProduct = (req: Request, res: Response) => {
-  products.push({ title: req.body.title });
+  // products.push({ title: req.body.title });
+  const product: Product = new Product(req.body.title);
+  product.save();
   res.redirect('/');
 };
 
 export const getProducts = (req: Request, res: Response) => {
   //   res.send('hello');
+  const products: {
+    title: string;
+  }[] = Product.fetchAll();
+
   res.render('shop', {
     prods: products,
     pageTitle: 'Shop',
