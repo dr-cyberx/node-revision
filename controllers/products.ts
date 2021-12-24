@@ -20,7 +20,7 @@ export const postAddProduct = (req: Request, res: Response) => {
 
 export const getProducts = (req: Request, res: Response) => {
   //   res.send('hello');
-  Product.fetchAll((product) => {
+  Product.fetchAll((product: any) => {
     res.render('shop', {
       prods: product,
       pageTitle: 'Shop',
