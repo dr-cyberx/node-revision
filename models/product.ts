@@ -1,35 +1,45 @@
-import fs from 'fs';
-import path from 'path';
-import rootDir from '../utils/path';
+/* eslint-disable no-shadow */
+/* eslint-disable no-unused-vars */
+const fs = require('fs');
+const path = require('path');
 
 class Product {
   title: string;
 
-  constructor(t: string) {
+  constructor(t: any) {
     this.title = t;
   }
 
   save() {
-    const p: string = path.join(rootDir, 'data', 'product.json');
-    fs.readFile(p, async (err: any | null, fileContent: any): Promise<void> => {
-      let Products: any = [];
-
+    const p = path.join(
+      path.dirname(require!.main!.filename),
+      'data',
+      'products.json',
+    );
+    fs.readFile(p, (err: any, fileContent: string) => {
+      let products = [];
       if (!err) {
-        Products = await JSON.parse(fileContent);
+        products = JSON.parse(fileContent);
       }
-
-      Products.push(this);
-      fs.writeFile(p, JSON.stringify(Products), (error) => {
-        if (error) {
-          console.log('i am error => ', error);
-        }
+      products.push(this);
+      fs.writeFile(p, JSON.stringify(products), (err: any) => {
+        console.log(err);
       });
     });
-    // Products.push(this);
   }
 
-  static fetchAll() {
-    return [{ title: 'vishal' }];
+  static fetchAll(cb: (arg0: any) => void) {
+    const p = path.join(
+      path.dirname(require!.main!.filename),
+      'data',
+      'products.json',
+    );
+    fs.readFile(p, (err: any, fileContent: string) => {
+      if (err) {
+        cb([]);
+      }
+      cb(JSON.parse(fileContent || ''));
+    });
   }
 }
 
