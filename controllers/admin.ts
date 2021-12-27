@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import Product from '../models/product';
 
 export const getAddProduct = (req: Request, res: Response): void => {
-  res.render('add-product', {
+  res.render('admin/add-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
     formsCSS: true,
@@ -18,20 +18,12 @@ export const postAddProduct = (req: Request, res: Response) => {
   res.redirect('/');
 };
 
-export const getProducts = (req: Request, res: Response) => {
-  //   res.send('hello');
+export const getProducts = (req: Request, res: Response): void => {
   Product.fetchAll((product: any) => {
-    res.render('shop', {
+    res.render('admin/products.ejs', {
       prods: product,
-      pageTitle: 'Shop',
-      path: '/',
-      hasProducts: product.length > 0,
-      activeShop: true,
-      productCSS: true,
+      pageTitle: 'Admin Products',
+      path: '/admin/products',
     });
   });
-};
-
-export const Hello = (): void => {
-  console.log('hello');
 };
