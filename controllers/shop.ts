@@ -16,9 +16,12 @@ export const getProducts = (req: Request, res: Response) => {
 };
 
 export const getIndex = (req: Request, res: Response): void => {
-  res.render('shop/index.ejs', {
-    pageTitle: 'Shop',
-    path: '/',
+  Product.fetchAll((product: any) => {
+    res.render('shop/index.ejs', {
+      prods: product,
+      pageTitle: 'Shop',
+      path: '/',
+    });
   });
 };
 

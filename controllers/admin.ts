@@ -17,3 +17,13 @@ export const postAddProduct = (req: Request, res: Response) => {
   product.save();
   res.redirect('/');
 };
+
+export const getProducts = (req: Request, res: Response): void => {
+  Product.fetchAll((product: any) => {
+    res.render('admin/products.ejs', {
+      prods: product,
+      pageTitle: 'Admin Products',
+      path: '/admin/products',
+    });
+  });
+};
