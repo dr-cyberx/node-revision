@@ -17,21 +17,3 @@ export const postAddProduct = (req: Request, res: Response) => {
   product.save();
   res.redirect('/');
 };
-
-export const getProducts = (req: Request, res: Response) => {
-  //   res.send('hello');
-  Product.fetchAll((product: any) => {
-    res.render('shop/product-list.ejs', {
-      prods: product,
-      pageTitle: 'Shop',
-      path: '/',
-      hasProducts: product.length > 0,
-      activeShop: true,
-      productCSS: true,
-    });
-  });
-};
-
-export const Hello = (): void => {
-  console.log('hello');
-};

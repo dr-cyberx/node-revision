@@ -7,4 +7,10 @@ const router: Router = express.Router();
 
 router.get('/', getProducts);
 
+router.get('/products');
+
+router.get('/cart');
+
+router.get('/checkout');
+
 export default router;
