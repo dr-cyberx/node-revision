@@ -3,7 +3,7 @@ import Product from '../models/product';
 
 export const getAddProduct = (req: Request, res: Response): void => {
   res.render('admin/add-product', {
-    pageTitle: 'Add Product',
+    pageTitle: 'Add Products',
     path: '/admin/add-product',
     formsCSS: true,
     productCSS: true,
@@ -13,7 +13,11 @@ export const getAddProduct = (req: Request, res: Response): void => {
 
 export const postAddProduct = (req: Request, res: Response) => {
   // products.push({ title: req.body.title });
-  const product: Product = new Product(req.body.title);
+  const {
+    title, imageUrl, description, price,
+  } = req.body;
+
+  const product: Product = new Product(title, imageUrl, description, price);
   product.save();
   res.redirect('/');
 };
