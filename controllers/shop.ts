@@ -32,6 +32,13 @@ export const getCart = (req: Request, res: Response): void => {
   });
 };
 
+export const getOrders = (req: Request, res: Response): void => {
+  res.render('shop/orders.ejs', {
+    pageTitle: 'Your orders',
+    path: '/orders',
+  });
+};
+
 export const getCheckout = (req: Request, res: Response) => {
   res.render('shop/checkout', {
     path: '/checkout',
