@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 import fs from 'fs';
 import path from 'path';
-import rootDir from '../utils/path';
 
 const p = path.join(
   path.dirname(require!.main!.filename),
@@ -50,6 +49,13 @@ class Product {
       fs.writeFile(p, JSON.stringify(products), (err) => {
         console.log(err);
       });
+    });
+  }
+
+  static findById(id: string, cb: any) {
+    getProductsFromFile((products: any) => {
+      const product = products.find((product: any) => product.id === id);
+      cb(product);
     });
   }
 

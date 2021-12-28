@@ -45,3 +45,11 @@ export const getCheckout = (req: Request, res: Response) => {
     pageTitle: 'Checkout ',
   });
 };
+
+export const getSingleProduct = (req: Request, res: Response) => {
+  const { productId } = req.params;
+  Product.findById(productId, (product: any) => {
+    console.log('product ----> ', product);
+  });
+  res.redirect('/');
+};
