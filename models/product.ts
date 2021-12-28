@@ -29,6 +29,8 @@ class Product {
 
   description: string;
 
+  id!: string;
+
   constructor(
     title: string,
     imageUrl: string,
@@ -42,6 +44,7 @@ class Product {
   }
 
   save() {
+    this.id = Math.random().toString();
     getProductsFromFile((products: any) => {
       products.push(this);
       fs.writeFile(p, JSON.stringify(products), (err) => {
