@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import Cart from '../models/cart';
 import Product from '../models/product';
 
 export const getProducts = (req: Request, res: Response) => {
@@ -59,5 +60,8 @@ export const getSingleProduct = (req: Request, res: Response) => {
 
 export const postCart = (req: Request, res: Response) => {
   const { productId } = req.body;
+  Product.findById(productId, (product: any) => {
+    Cart.addProduct(productId, product.price);
+  });
   res.send(productId);
 };
