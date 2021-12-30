@@ -56,3 +56,8 @@ export const getSingleProduct = (req: Request, res: Response) => {
     });
   });
 };
+
+export const postCart = (req: Request, res: Response) => {
+  const { productId } = req.body;
+  res.send(productId);
+};

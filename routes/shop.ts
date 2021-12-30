@@ -6,7 +6,8 @@ import {
   getCheckout,
   getIndex,
   getOrders,
-  getSingleProduct
+  getSingleProduct,
+  postCart,
 } from '../controllers/shop';
 // import rootDir from '../utils/path';
 
@@ -19,6 +20,8 @@ router.get('/products', getProducts);
 router.get('/products/:productId', getSingleProduct);
 
 router.get('/cart', getCart);
+
+router.post('/cart', postCart);
 
 router.get('/orders', getOrders);
 
