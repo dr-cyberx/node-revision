@@ -49,7 +49,15 @@ export const getCheckout = (req: Request, res: Response) => {
 export const getSingleProduct = (req: Request, res: Response) => {
   const { productId } = req.params;
   Product.findById(productId, (product: any) => {
-    console.log('product ----> ', product);
+    res.render('shop/product-detail', {
+      product,
+      pageTitle: product.title,
+      path: '/products',
+    });
   });
-  res.redirect('/');
+};
+
+export const postCart = (req: Request, res: Response) => {
+  const { productId } = req.body;
+  res.send(productId);
 };
