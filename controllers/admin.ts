@@ -26,10 +26,17 @@ export const getEditProduct = (req: Request, res: Response): void => {
   }
 
   const { productId } = req.params;
+  console.log(`${editMode} ${productId}`);
 
   Product.findById(productId, (product: any) => {
+    if (!product) {
+      console.log('run 1');
+      res.redirect('/');
+    }
+    console.log('run 2', product);
+
     res.render('admin/edit-product', {
-      pageTitle: 'Add Products',
+      pageTitle: 'Edit Products',
       path: '/admin/edit-product',
       editing: editMode,
       product,
