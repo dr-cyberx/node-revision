@@ -28,6 +28,9 @@ export const getEditProduct = (req: Request, res: Response): void => {
   const { productId } = req.params;
 
   Product.findById(productId, (product: any) => {
+    if (!product) {
+      res.redirect('/');
+    }
     res.render('admin/edit-product', {
       pageTitle: 'Add Products',
       path: '/admin/edit-product',
