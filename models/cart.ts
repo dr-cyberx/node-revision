@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-return */
 import fs from 'fs';
 import path from 'path';
 
@@ -28,6 +29,26 @@ class Cart {
       }
       cart.totalPrice += +productPrice;
       fs.writeFile(p, JSON.stringify(cart), (err1: any): void => {
+        console.log(err1);
+      });
+    });
+  }
+
+  static deleteProduct(id: any, productPrice: any) {
+    console.log(id);
+    fs.readFile(p, (err: any, fileContent: any) => {
+      if (err) {
+        return;
+      }
+      const updatedCart = { ...cart };
+      const product = updatedCart.product.find((prod: any) => prod.id === id);
+      const productQty = product.qty;
+      updatedCart.products = updatedCart.product.filter(
+        (prod: any) => prod.id !== id,
+      );
+      cart.totalPrice -= productPrice * productQty;
+
+      fs.writeFile(p, JSON.stringify(updatedCart), (err1: any): void => {
         console.log(err1);
       });
     });
