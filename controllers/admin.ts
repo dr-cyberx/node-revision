@@ -62,10 +62,11 @@ export const postEditProduct = (req: Request, res: Response) => {
   const updatedProduct: Product = new Product(
     productId,
     title,
-    price,
     imageUrl,
+    price,
     description,
   );
   console.log(updatedProduct);
   updatedProduct.save();
+  res.json(updatedProduct);
 };

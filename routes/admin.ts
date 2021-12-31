@@ -4,6 +4,7 @@ import {
   postAddProduct,
   getProducts,
   getEditProduct,
+  postEditProduct,
 } from '../controllers/admin';
 
 const router: Router = express.Router();
@@ -17,6 +18,6 @@ router.post('/add-product', postAddProduct);
 
 router.get('/edit-product/:productId', getEditProduct);
 
-router.post('/edit-product', getEditProduct);
+router.post('/edit-product', postEditProduct);
 
 export default router;
