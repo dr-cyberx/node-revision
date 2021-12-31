@@ -11,9 +11,7 @@ export const getAddProduct = (req: Request, res: Response): void => {
 
 export const postAddProduct = (req: Request, res: Response) => {
   // products.push({ title: req.body.title });
-  const {
-    title, imageUrl, description, price,
-  } = req.body;
+  const { title, imageUrl, description, price } = req.body;
 
   const product: Product = new Product(
     null,
@@ -60,9 +58,7 @@ export const getProducts = (req: Request, res: Response): void => {
 };
 
 export const postEditProduct = (req: Request, res: Response) => {
-  const {
-    productId, title, price, imageUrl, description,
-  } = req.body;
+  const { productId, title, price, imageUrl, description } = req.body;
   const updatedProduct: Product = new Product(
     productId,
     title,
@@ -71,4 +67,5 @@ export const postEditProduct = (req: Request, res: Response) => {
     description,
   );
   console.log(updatedProduct);
+  updatedProduct.save();
 };
