@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import fs from 'fs';
 import path from 'path';
+import Cart from './cart';
 
 const p = path.join(
   path.dirname(require!.main!.filename),
@@ -81,12 +82,14 @@ class Product {
 
   static deleteById(id: any) {
     getProductsFromFile((products: any) => {
+      const prod = products.find((prod: any) => prod.id === id);
       const updatedProduct = products.filter(
         (product: any) => product.id !== id,
       );
       writeIntoFile(updatedProduct, (err) => {
         if (!err) {
           console.log('hello');
+          Cart.deleteProduct(id, prod.price);
         }
       });
     });
