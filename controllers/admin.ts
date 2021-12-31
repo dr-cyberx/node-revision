@@ -11,9 +11,17 @@ export const getAddProduct = (req: Request, res: Response): void => {
 
 export const postAddProduct = (req: Request, res: Response) => {
   // products.push({ title: req.body.title });
-  const { title, imageUrl, description, price } = req.body;
+  const {
+    title, imageUrl, description, price,
+  } = req.body;
 
-  const product: Product = new Product(title, imageUrl, price, description);
+  const product: Product = new Product(
+    null,
+    title,
+    imageUrl,
+    price,
+    description,
+  );
   product.save();
   res.redirect('/');
 };
@@ -26,14 +34,11 @@ export const getEditProduct = (req: Request, res: Response): void => {
   }
 
   const { productId } = req.params;
-  console.log(`${editMode} ${productId}`);
 
   Product.findById(productId, (product: any) => {
     if (!product) {
-      console.log('run 1');
       res.redirect('/');
     }
-    console.log('run 2', product);
 
     res.render('admin/edit-product', {
       pageTitle: 'Edit Products',
@@ -52,4 +57,18 @@ export const getProducts = (req: Request, res: Response): void => {
       path: '/admin/products',
     });
   });
+};
+
+export const postEditProduct = (req: Request, res: Response) => {
+  const {
+    productId, title, price, imageUrl, description,
+  } = req.body;
+  const updatedProduct: Product = new Product(
+    productId,
+    title,
+    price,
+    imageUrl,
+    description,
+  );
+  console.log(updatedProduct);
 };
