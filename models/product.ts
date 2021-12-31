@@ -19,10 +19,11 @@ const getProductsFromFile = (cb: any) => {
   });
 };
 
-const writeIntoFile = (productArray: any[]): void => {
-  fs.writeFile(p, JSON.stringify(productArray), (err) => {
-    console.log(err);
-  });
+const writeIntoFile = (
+  productArray: any[],
+  callback: (err: any) => void,
+): void => {
+  fs.writeFile(p, JSON.stringify(productArray), callback);
 };
 
 class Product {
@@ -58,11 +59,11 @@ class Product {
         );
         const updatedProduct: any[] = [...products];
         updatedProduct[existingProductIndex] = this;
-        writeIntoFile(updatedProduct);
+        writeIntoFile(updatedProduct, (err) => console.log(err));
       } else {
         this.id = Math.random().toString();
         products.push(this);
-        writeIntoFile(products);
+        writeIntoFile(products, (err) => console.log(err));
       }
     });
   }
@@ -76,6 +77,19 @@ class Product {
 
   static fetchAll(cb: any) {
     getProductsFromFile(cb);
+  }
+
+  static deleteById(id: any) {
+    getProductsFromFile((products: any) => {
+      const updatedProduct = products.filter(
+        (product: any) => product.id !== id,
+      );
+      writeIntoFile(updatedProduct, (err) => {
+        if (!err) {
+          console.log('hello');
+        }
+      });
+    });
   }
 }
 
