@@ -40,17 +40,27 @@ class Cart {
       if (err) {
         return;
       }
-      const updatedCart = { ...cart };
+      const updatedCart = { ...JSON.parse(fileContent) };
       const product = updatedCart.product.find((prod: any) => prod.id === id);
       const productQty = product.qty;
       updatedCart.products = updatedCart.product.filter(
         (prod: any) => prod.id !== id,
       );
-      cart.totalPrice -= productPrice * productQty;
+      updatedCart.totalPrice -= productPrice * productQty;
 
       fs.writeFile(p, JSON.stringify(updatedCart), (err1: any): void => {
         console.log(err1);
       });
+    });
+  }
+
+  static getCart(cb: any) {
+    fs.readFile(p, (err: any, fileContent: any) => {
+      const cart = JSON.parse(fileContent);
+      if (!err) {
+        cb(cart);
+      }
+      cb(null);
     });
   }
 }

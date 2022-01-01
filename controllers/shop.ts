@@ -1,3 +1,7 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-undef */
+/* eslint-disable no-empty */
 import { Request, Response } from 'express';
 import Cart from '../models/cart';
 import Product from '../models/product';
@@ -27,9 +31,23 @@ export const getIndex = (req: Request, res: Response): void => {
 };
 
 export const getCart = (req: Request, res: Response): void => {
-  res.render('shop/cart.ejs', {
-    pageTitle: 'Your Cart',
-    path: '/cart',
+  Cart.getCart((cart: any) => {
+    Product.fetchAll((prod: any) => {
+      const cartProduct: any = [];
+      prod.map((pro: any) => {
+        const cartproductdata = cart.products.find(
+          (p: { id: any }) => p.id === pro.id,
+        );
+        cartProduct.push({ productdata: pro, qty: cartProduct.qty });
+        if (cartproductdata) {
+        }
+        res.render('shop/cart.ejs', {
+          pageTitle: 'Your Cart',
+          path: '/cart',
+          product: cartProduct,
+        });
+      });
+    });
   });
 };
 
